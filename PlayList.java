@@ -135,7 +135,11 @@ class PlayList {
      *  If the total size of both lists is too large, does nothing. */
     //// An elegant and terribly inefficient implementation.
      public void add(PlayList other) {
-        //// replace this comment with your code
+        if (other.getSize() + getSize()<=getMaxSize()){
+            for(int i = 0; i<other.getSize();i++){
+                add(other.getTrack(i));
+            }
+        }
     }
 
     /** Returns the index in this list of the track that has the shortest duration,
@@ -145,8 +149,16 @@ class PlayList {
      *  If start is negative or greater than size - 1, returns -1.
      */
     private int minIndex(int start) {
-        //// replace the following statement with your code
-        return 0;
+          if (start < 0 || start >= size){
+            return -1;
+        }
+        int minIndex = start;
+        for (int i = start + 1; i < size; i++){
+            if (tracks[i].getDuration() < tracks[minIndex].getDuration()){
+                minIndex = i;
+            }
+        }
+        return minIndex;
     }
 
     /** Returns the title of the shortest track in this list. 
@@ -160,8 +172,15 @@ class PlayList {
      *  rather than returning a new, sorted playlist, the method sorts
      *  the list on which it was called (this list). */
     public void sortedInPlace() {
-        // Uses the selection sort algorithm,  
-        // calling the minIndex method in each iteration.
-        //// replace this statement with your code
+          for (int i = 0; i < size - 1; i++){
+            int minIndex = minIndex (i);
+            if (minIndex != -1){
+                Track temp = tracks[i];
+                tracks[i] = tracks[minIndex];
+                tracks[minIndex] = temp;
     }
 }
+}
+}
+
+
