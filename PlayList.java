@@ -88,27 +88,47 @@ class PlayList {
      *  is full, does nothing and returns false. Otherwise, inserts the track and
      *  returns true. */
     public boolean add(int i, Track track) {
-        //// replace the following statement with your code
-        return false;
+         if (getSize() >= getMaxSize() || i < 0 || i > getSize()) {
+            return false;
+        }
+        for (int k = getSize() - 1; k >= i; k--) {
+            tracks[k + 1] = tracks[k];
+        }
+        tracks[i] = track;
+        size++;
+        return true;
     }
      
     /** Removes the track in the given index from this list.
      *  If the list is empty, or the given index is negative or too big for this list, 
      *  does nothing and returns -1. */
-    public void remove(int i) {
-        //// replace this comment with your code
+    public int remove(int i) {
+       if (getSize() == 0 || i < 0 || i > getSize()) {
+           return -1;
+       }
+           for (int k = i; k < getSize() ; k++) {
+            tracks[k] = tracks[k+1];
+        }
+        size --;
+        return 0;
     }
 
     /** Removes the first track that has the given title from this list.
      *  If such a track is not found, or the list is empty, or the given index
      *  is negative or too big for this list, does nothing. */
     public void remove(String title) {
-        //// replace this comment with your code
+        for (int i = 0; i < getSize() ; i++) {
+            if(tracks[i].getTitle() == title){
+                remove(i);
+            }
+        }
     }
 
     /** Removes the first track from this list. If the list is empty, does nothing. */
     public void removeFirst() {
-        //// replace this comment with your code
+        if (size > 0){
+            remove(0);
+        }
     }
     
     /** Adds all the tracks in the other list to the end of this list. 
